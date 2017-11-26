@@ -11,4 +11,8 @@ App.propTypes = {
   txt: PropTypes.string
 }
 
+App.defaultProps = {
+  txt: 'this is default prop'
+}
+
 export default App
