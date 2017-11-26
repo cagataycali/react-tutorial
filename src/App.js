@@ -4,31 +4,26 @@ class App extends React.Component {
   constructor () {
     super()
     this.state = {
-      a: '',
-      b: ''
+      val: 0
     }
+    this.update = this.update.bind(this)
   }
-  update (e) {
-    this.setState({
-      a: this.a.value,
-      b: this.refs.b.value
-    })
+
+  componentWillMount () {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount () {
+    console.log('componentDidMount')
+  }
+
+  update () {
+    this.setState({val: this.state.val + 1})
   }
 
   render () {
-    return (
-      <div>
-        <input
-          ref={node => this.a = node}
-          type='text' onChange={this.update.bind(this)} />
-        {this.state.a}
-        <hr />
-        <input
-          ref='b'
-          type='text' onChange={this.update.bind(this)} />
-        {this.state.b}
-      </div>
-    )
+    console.log('Render')
+    return <button onClick={this.update}>{this.state.val}</button>
   }
 }
 
