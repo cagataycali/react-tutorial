@@ -3,28 +3,40 @@ import React from 'react'
 class App extends React.Component {
   constructor () {
     super()
-    this.state = {
-      val: 0
+    this.state = {
+      items: []
     }
-    this.update = this.update.bind(this)
   }
 
   componentWillMount () {
-    console.log('componentWillMount')
+    // eslint-disable-next-line
+    fetch ('https://swapi.co/api/people/?format=json')
+      .then(response => response.json())
+      .then(({results: items}) => this.setState({items}))
   }
 
-  componentDidMount () {
-    console.log('componentDidMount')
-  }
-
-  update () {
-    this.setState({val: this.state.val + 1})
+  filter (e) {
+    this.setState({filter: e.target.value})
   }
 
   render () {
     console.log('Render')
-    return <button onClick={this.update}>{this.state.val}</button>
+    let items = this.state.items
+    if (this.state.filter) {
+      items = items.filter(item =>
+        item.name.toLowerCase()
+        .includes(this.state.filter.toLowerCase())
+      )
+    }
+    return (
+      <div>
+        <input type='text' onChange={this.filter.bind(this)} />
+        {items.map(item => <Person key={item.name} person={item} />)}
+      </div>
+    )
   }
 }
+
+const Person = props => <h4>{props.person.name}</h4>
 
 export default App
