@@ -1,18 +1,28 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 class App extends React.Component {
-  render () {
-    return <h1>{this.props.txt}</h1>
+  constructor () {
+    super()
+    this.state = {
+      txt: 'this is the state txt'
+    }
   }
-}
 
-App.propTypes = {
-  txt: PropTypes.string
-}
+  update (e) {
+    this.setState({ txt: e.target.value })
+  }
 
-App.defaultProps = {
-  txt: 'this is default prop'
+  render () {
+    return (
+      <div>
+        <h1>{this.state.txt}</h1>
+        <input
+          type='text'
+          onChange={this.update.bind(this)}
+        />
+      </div>
+    )
+  }
 }
 
 export default App
